@@ -166,10 +166,12 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 def filterLongWindowNames(text):
-    for string in ["NVIM", "Firefox"]:
+    for string in ["NVIM", "Brave"]:
         if string in text:
             if string == "NVIM":
                 text = "Lunarvim"
+            elif string == "Brave":
+                text = "Brave Browser"
             else:
                 text = string
         else:
@@ -177,6 +179,24 @@ def filterLongWindowNames(text):
     return text
 
 networkIcons = ["󰣼", "󰣺"]
+
+# Create function to make triangleWidget easier
+def triangleWidget(endOfWidget=False, widget=widget):
+    if(endOfWidget):
+        return widget.TextBox(
+            text="",
+            padding=0,
+            fontsize=30,
+            foreground=catpuccin["Teal"]
+            )
+                
+    return widget.TextBox(
+        text = "",
+        padding=0,
+        fontsize=30,
+        foreground=catpuccin["Flamingo"],
+        )
+         
 
 def get_widgets(primary=False):
     widgets= [
