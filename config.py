@@ -181,20 +181,20 @@ def filterLongWindowNames(text):
 networkIcons = ["󰣼", "󰣺"]
 
 # Create function to make triangleWidget easier
-def triangleWidget(endOfWidget=False, widget=widget):
-    if(endOfWidget):
+def triangleWidget(endOfWidget=False, widget=widget, color=""):
+    if(endOfWidget == False):
         return widget.TextBox(
             text="",
             padding=0,
             fontsize=30,
-            foreground=catpuccin["Teal"]
+            foreground=color
             )
                 
     return widget.TextBox(
         text = "",
         padding=0,
         fontsize=30,
-        foreground=catpuccin["Flamingo"],
+        foreground=color,
         )
          
 
@@ -207,18 +207,8 @@ def get_widgets(primary=False):
                  highlight_color=[catpuccin["Flamingo"], catpuccin["Flamingo"]],
                  inactive=catpuccin["Crust"],
                 ),
-            widget.TextBox(
-                text = "",
-                padding=0,
-                fontsize=30,
-                foreground=catpuccin["Flamingo"],
-                ),
-            widget.TextBox(
-                text="",
-                padding=0,
-                fontsize=30,
-                foreground=catpuccin["Teal"]
-                ),
+            triangleWidget(color=catpuccin["Flamingo"], endOfWidget=True),
+            triangleWidget(color=catpuccin["Teal"]),
             widget.WindowName(
                 padding=0,
                 foreground=catpuccin["Crust"],
@@ -227,95 +217,57 @@ def get_widgets(primary=False):
                 width=470,
                 parse_text=filterLongWindowNames,
                 ),
-           widget.TextBox(
-                text = "",
-                padding=0,
-                fontsize=30,
-                foreground=catpuccin["Teal"],
-                ),
-            widget.TextBox(
-                text="",
-                padding=0,
-                fontsize=30,
-                foreground=catpuccin["Mauve"]
-                ),
+            triangleWidget(True, color=catpuccin["Teal"]),
+            triangleWidget(color=catpuccin["Mauve"]),
            widget.Clock(
-                   format=" %Y-%m-%d %a %I:%M %p",
+                   format="     %Y-%m-%d %a %I:%M %p",
                    fontsize=10,
                    background=catpuccin["Mauve"],
                    foreground=catpuccin["Crust"]
                    ),
-            widget.TextBox(
-                text = "",
-                padding=0,
-                fontsize=30,
-                foreground=catpuccin["Mauve"],
-                ),
-            widget.TextBox(
-                    text="",
-                    padding=0,
-                    fontsize=30,
-                    foreground=catpuccin["Green"]
-                    ),                            
+            triangleWidget(True, color=catpuccin["Mauve"]),
+            triangleWidget(color=catpuccin["Green"]),
             widget.Wlan(
                     interface="wlo1",
                     fontsize=10,
                     disconnected_message=networkIcons[0],
-                    format="{essid} " + networkIcons[1] + " Signal Strength: {percent:2.0%}",
+                    format="{essid} " + networkIcons[1] + "  Signal Strength: {percent:2.0%}",
                     background=catpuccin["Green"],
                     foreground=catpuccin["Crust"],
                     ),
-            widget.Battery(
+            widget.BatteryIcon(
                     background=catpuccin["Green"],
                     foreground=catpuccin["Crust"],
-                    fontsize=10
-                    ), 
-           widget.TextBox(
-                    text="",
-                    padding=0,
-                    fontsize=30,
-                    foreground=catpuccin["Green"],
                     ),
-                widget.TextBox(
-                    text="",
-                    padding=0,
-                    fontsize=30,
-                    foreground=catpuccin["Red"]
-                    ),                         
+            triangleWidget(True, color=catpuccin["Green"]),
+            triangleWidget(color=catpuccin["Red"]),
             widget.CPU(
                     background=catpuccin["Red"],
                     fontsize=10,
-                    format="CPU: {freq_current}GHz {load_percent}%"
+                    format="CPU: {freq_current}GHz {load_percent}%",
+                    foreground=catpuccin["Crust"],
                     ),
             widget.ThermalSensor(
                     tag_sensor='Tctl',
                     threshold=40.0,
                     fontsize=10,
-                    background=catpuccin["Red"]
+                    background=catpuccin["Red"],
+                    foreground=catpuccin["Crust"],
                     ),
-             widget.TextBox(
-                    text="",
-                    padding=0,
-                    fontsize=30,
-                    foreground=catpuccin["Red"],
+            widget.Memory(
+                    format='Memory: {MemUsed: .0f}{mm}/{MemTotal: .0f}{mm} Swap: {SwapUsed: .0f}{ms}/{SwapTotal: .0f}{ms}',
+                    fontsize=10,
+                    background=catpuccin["Red"],
+                    foreground=catpuccin["Crust"],
             ),
-
-            widget.TextBox(
-                    text="",
-                    padding=0,
-                    fontsize=30,
-                    foreground=catpuccin["Lavender"]
-            ),         
+            triangleWidget(True, color=catpuccin["Red"]),
+            triangleWidget(color=catpuccin["Lavender"]),
             owm.OpenWeatherMap(
                     background=catpuccin["Lavender"],
+                    foreground=catpuccin["Crust"],
                     fontsize=10,
                     ),
-             widget.TextBox(
-                    text="",
-                    padding=0,
-                    fontsize=30,
-                    foreground=catpuccin["Lavender"],
-            ),
+            triangleWidget(True, color=catpuccin["Lavender"])
         ]
     if primary:
         widgets.append(widget.Systray())
